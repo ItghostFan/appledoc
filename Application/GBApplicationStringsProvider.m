@@ -81,6 +81,7 @@
 		result[@"resultTitle"] = NSLocalizedString(@"Return Value", @"Return Value");
 		result[@"availability"] = NSLocalizedString(@"Availability", @"Availability");
 		result[@"discussionTitle"] = NSLocalizedString(@"Discussion", @"Discussion");
+        result[@"exampleTitle"] = NSLocalizedString(@"Example", @"Example");
 		result[@"exceptionsTitle"] = NSLocalizedString(@"Exceptions", @"Exceptions");
 		result[@"seeAlsoTitle"] = NSLocalizedString(@"See Also", @"See Also");
 		result[@"declaredInTitle"] = NSLocalizedString(@"Declared In", @"Declared In");

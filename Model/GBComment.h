@@ -75,6 +75,8 @@
  */
 @property (strong) GBCommentComponentsList *longDescription;
 
+@property (strong) GBCommentComponentsList *methodCode;
+
 /** The list to related items.
  
  This is simply a list of `GBCommentComponent`s, each one containing a cross reference to a single item.
@@ -155,6 +157,8 @@
  @see hasShortDescription
  */
 @property (readonly) BOOL hasLongDescription;
+
+@property (readonly) BOOL hasMethodCode;
 
 /** Specifies whether the `methodParameters` contains at least one object or not.
  

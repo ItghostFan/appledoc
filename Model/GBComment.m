@@ -28,6 +28,7 @@
 	self = [super init];
 	if (self) {
 		self.longDescription = [GBCommentComponentsList componentsList];
+        self.methodCode = [GBCommentComponentsList componentsList];
 		self.relatedItems = [GBCommentComponentsList componentsList];
 		self.methodParameters = [NSMutableArray array];
 		self.methodExceptions = [NSMutableArray array];
@@ -55,6 +56,10 @@
 
 - (BOOL)hasLongDescription {
 	return [self.longDescription.components count] > 0;
+}
+
+- (BOOL)hasMethodCode {
+    return [self.methodCode.components count] > 0;
 }
 
 - (BOOL)hasMethodParameters {
@@ -88,6 +93,7 @@
 
 @synthesize shortDescription;
 @synthesize longDescription;
+@synthesize methodCode;
 @synthesize relatedItems;
 
 @synthesize methodParameters;

@@ -230,6 +230,7 @@ typedef NSUInteger GBProcessingFlag;
 	if ([self isLineMatchingDirectiveStatement:[block firstObject]]) {
 		NSString *string = [self stringByCombiningTrimmedLines:block];
 		if ([self processDiscussionBlockInString:string lines:lines blockRange:blockRange shortRange:shortRange]) return;
+        if ([self processCodeBlockInString:string lines:lines blockRange:blockRange shortRange:shortRange]) return;
 		if ([self processAbstractBlockInString:string lines:lines blockRange:blockRange shortRange:shortRange]) return;
 		if ([self processNoteBlockInString:string lines:lines blockRange:blockRange shortRange:shortRange]) return;
 		if ([self processWarningBlockInString:string lines:lines blockRange:blockRange shortRange:shortRange]) return;
@@ -475,6 +476,29 @@ typedef NSUInteger GBProcessingFlag;
 	return YES;
 }
 
+- (BOOL)processCodeBlockInString:(NSString *)string lines:(NSArray *)lines blockRange:(NSRange)blockRange shortRange:(NSRange)shortRange {
+    NSArray *components = [string captureComponentsMatchedByRegex:self.components.codeRegex];
+    if ([components count] == 0) return NO;
+    
+    // Get data from captures. Index 1 is directive, index 2 description text.
+    NSString *code = components[3];
+    NSRange range = [string rangeOfString:code];
+    NSString *prefix = nil;
+    if (range.location < [string length]) {
+        prefix = [string substringToIndex:range.location];
+    } else {
+        prefix = @"";
+    }
+    
+    GBLogDebug(@"- Registering code description %@ at %@...", [code normalizedDescription], self.currentSourceInfo);
+    [self reserveShortDescriptionFromLines:lines range:shortRange removePrefix:prefix];
+    
+    // Prepare object representation from the description and register the result to the comment.
+    GBCommentComponent *component = [self commentComponentByPreprocessingString:code withFlags:0];
+    [self.currentComment.methodCode registerComponent:component];
+    return YES;
+}
+
 - (BOOL)processAbstractBlockInString:(NSString *)string lines:(NSArray *)lines blockRange:(NSRange)blockRange shortRange:(NSRange)shortRange {
 	NSArray *components = [string captureComponentsMatchedByRegex:self.components.abstractRegex];
 	if ([components count] == 0) return NO;
@@ -571,6 +595,7 @@ typedef NSUInteger GBProcessingFlag;
 
 - (BOOL)isLineMatchingDirectiveStatement:(NSString *)string {
 	if ([string isMatchedByRegex:self.components.discussionRegex]) return YES;
+    if ([string isMatchedByRegex:self.components.codeRegex]) return YES;
 	if ([string isMatchedByRegex:self.components.abstractRegex]) return YES;
 	if ([string isMatchedByRegex:self.components.noteSectionRegex]) return YES;
 	if ([string isMatchedByRegex:self.components.warningSectionRegex]) return YES;

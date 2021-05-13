@@ -52,6 +52,10 @@
 	GBRETURN_ON_DEMAND([self descriptionCaptureRegexForKeyword:@"(discussion|details)"]);
 }
 
+- (NSString *)codeRegex {
+    GBRETURN_ON_DEMAND([self descriptionCaptureRegexForKeyword:@"(code|example)"]);
+}
+
 - (NSString *)noteSectionRegex {
 	GBRETURN_ON_DEMAND([self descriptionCaptureRegexForKeyword:@"note"]);
 }

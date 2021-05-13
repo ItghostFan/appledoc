@@ -224,6 +224,13 @@ Section Method
 				{{#longDescription}}{{>GBCommentComponentsList}}{{/longDescription}}
 			</div>
 			{{/hasLongDescription}}
+            
+            {{#hasMethodCode}}
+            <div class="method-subsection discussion-section">
+                <h4 class="method-subtitle">{{strings.objectMethods.exampleTitle}}</h4>
+                {{#methodCode}}{{>GBCommentComponentsList}}{{/methodCode}}
+            </div>
+            {{/hasMethodCode}}
 
 			{{#hasMethodExceptions}}
 			<div class="method-subsection arguments-section exceptions">
@@ -305,6 +312,15 @@ Section BlocksDefList
   {{#longDescription}}{{>GBCommentComponentsList}}{{/longDescription}}
   </div>
   {{/hasLongDescription}}
+  {{/comment}}
+
+  {{#comment}}
+  {{#hasMethodCode}}
+  <div class="method-subsection discussion-section">
+  <h4 class="method-subtitle">{{strings.objectMethods.exampleTitle}}</h4>
+  {{#methodCode}}{{>GBCommentComponentsList}}{{/methodCode}}
+  </div>
+  {{/hasMethodCode}}
   {{/comment}}
   
   {{#comment}}

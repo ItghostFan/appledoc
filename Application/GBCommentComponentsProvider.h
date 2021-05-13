@@ -82,6 +82,7 @@
 
 @property (readonly) NSString *abstractRegex;
 @property (readonly) NSString *discussionRegex;
+@property (readonly) NSString *codeRegex;
 
 ///---------------------------------------------------------------------------------------
 /// @name Markdown specific definitions
