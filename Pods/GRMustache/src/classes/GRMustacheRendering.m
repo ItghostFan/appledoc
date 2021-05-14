@@ -354,6 +354,9 @@ static NSString *GRMustacheRenderNSString(NSString *self, SEL _cmd, GRMustacheTa
             if (HTMLSafe != NULL) {
                 *HTMLSafe = NO;
             }
+            if ([self containsString:@"\n"]) {
+                return [self stringByReplacingOccurrencesOfString:@"\n" withString:@"<br />"];
+            }
             return self;
             
         case GRMustacheTagTypeSection:
